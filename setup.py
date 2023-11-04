@@ -1,8 +1,30 @@
 # Available at setup time due to pyproject.toml
-from pybind11.setup_helpers import Pybind11Extension, build_ext
-from setuptools import setup
+from pybind11.setup_helpers import Pybind11Extension, build_ext, ParallelCompile
+from setuptools import setup, find_packages
+from setuptools.command.install import install
+import os.path as path
+
+from glob import glob
 
 __version__ = "0.0.1"
+
+
+dunedaq_packages = [
+    'detdataformats',
+    'fddetdataformats',
+    'daqdataformats',
+    # 'detchannelmaps'
+]
+
+packages = dunedaq_packages[:]
+
+package_dir = { p:f"dunedaq/{p}/python/{p}" for p in dunedaq_packages }
+
+# package_dir = {
+#     'detdataformats': 'dunedaq/detdataformats/python/detdataformats',
+#     'fddetdataformats': 'dunedaq/fddetdataformats/python/fddetdataformats'
+# }
+
 
 # The main interface is through Pybind11Extension.
 # * You can add cxx_std=11/14/17, and then build_ext can be removed.
@@ -13,28 +35,65 @@ __version__ = "0.0.1"
 #   Sort input source files if you glob sources to ensure bit-for-bit
 #   reproducible builds (https://github.com/pybind/python_example/pull/53)
 
+# ext_modules = [
+#     Pybind11Extension(
+#         "detdataformats/_daq_detdataformats_py",
+#         sources=[
+#             # "src/main.cpp",
+#         ] + glob('dunedaq/detdataformats/pybindsrc/*.cpp'),
+#         include_dirs=[
+#             "dunedaq/detdataformats/include"
+#         ],
+#         # Example: passing in the version to the compiled code
+#         define_macros=[("VERSION_INFO", __version__)],
+#     ),
+#     Pybind11Extension(
+#         "fddetdataformats/_daq_fddetdataformats_py",
+#         sources=[
+#             # "src/main.cpp",
+#         ] + glob('dunedaq/fddetdataformats/pybindsrc/*.cpp'),
+#         include_dirs=[
+#             "dunedaq/detdataformats/include",
+#             "dunedaq/fddetdataformats/include"
+#         ],
+#         # Example: passing in the version to the compiled code
+#         define_macros=[("VERSION_INFO", __version__)],
+#     ),
+# ]
+
 ext_modules = [
     Pybind11Extension(
-        "python_example",
-        ["src/main.cpp"],
+        f"{p}/_daq_{p}_py",
+        sources=[
+            # "src/main.cpp",
+        ] + glob(f"dunedaq/{p}/pybindsrc/*.cpp"),
+        include_dirs=[
+            # Brute force
+            f"dunedaq/{i}/include" for i in dunedaq_packages 
+        ],
         # Example: passing in the version to the compiled code
         define_macros=[("VERSION_INFO", __version__)],
-    ),
+    ) for p in dunedaq_packages
 ]
 
-setup(
-    name="python_example",
-    version=__version__,
-    author="Sylvain Corlay",
-    author_email="sylvain.corlay@gmail.com",
-    url="https://github.com/pybind/python_example",
-    description="A test project using pybind11",
-    long_description="",
-    ext_modules=ext_modules,
-    extras_require={"test": "pytest"},
-    # Currently, build_ext only provides an optional "highest supported C++
-    # level" feature, but in the future it may provide more features.
-    cmdclass={"build_ext": build_ext},
-    zip_safe=False,
-    python_requires=">=3.7",
-)
+with ParallelCompile("NPY_NUM_BUILD_JOBS"):
+    setup(
+        name="datafmt",
+        version=__version__,
+        author="Alessandro Thea",
+        author_email="alessandro.thea@gmail.com",
+        url="https://github.com/alessandrothea/datafmt",
+        description="A test project using pybind11",
+        long_description="",
+        packages=packages,
+        package_dir=package_dir,
+        ext_modules=ext_modules,
+        extras_require={"test": "pytest"},
+        # Currently, build_ext only provides an optional "highest supported C++
+        # level" feature, but in the future it may provide more features.
+        cmdclass={
+            "build_ext": build_ext,
+            },
+        zip_safe=False,
+        python_requires=">=3.7",
+    )

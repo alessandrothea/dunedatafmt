@@ -1,0 +1,12 @@
+[submodule "dunedaq/detdataformats"]
+	path = dunedaq/detdataformats
+	url = ../../DUNE-DAQ/detdataformats.git
+[submodule "dunedaq/fddetdataformats"]
+	path = dunedaq/fddetdataformats
+	url = ../../DUNE-DAQ/fddetdataformats.git
+[submodule "dunedaq/daqdataformats"]
+	path = dunedaq/daqdataformats
+	url = ../../DUNE-DAQ/daqdataformats.git
+[submodule "dunedaq/detchannelmaps"]
+	path = dunedaq/detchannelmaps
+	url = ../../DUNE-DAQ/detchannelmaps.git
