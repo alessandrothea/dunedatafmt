@@ -13,3 +13,6 @@
 [submodule "dunedaq/rawdatautils"]
 	path = dunedaq/rawdatautils
 	url = ../../DUNE-DAQ/rawdatautils.git
+[submodule "dunedaq/trgdataformats"]
+	path = dunedaq/trgdataformats
+	url = ../../DUNE-DAQ/trgdataformats.git

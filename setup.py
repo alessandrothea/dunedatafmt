@@ -16,6 +16,7 @@ dunedaq_packages = [
     'detdataformats',
     'fddetdataformats',
     'daqdataformats',
+    'trgdataformats',
     # 'detchannelmaps',
     'rawdatautils'
 ]
