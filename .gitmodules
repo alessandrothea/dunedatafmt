@@ -10,3 +10,6 @@
 [submodule "dunedaq/detchannelmaps"]
 	path = dunedaq/detchannelmaps
 	url = ../../DUNE-DAQ/detchannelmaps.git
+[submodule "dunedaq/rawdatautils"]
+	path = dunedaq/rawdatautils
+	url = ../../DUNE-DAQ/rawdatautils.git
