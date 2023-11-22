@@ -25,48 +25,6 @@ packages = dunedaq_packages[:]
 
 package_dir = { p:f"dunedaq/{p}/python/{p}" for p in dunedaq_packages }
 
-# package_dir = {
-#     'detdataformats': 'dunedaq/detdataformats/python/detdataformats',
-#     'fddetdataformats': 'dunedaq/fddetdataformats/python/fddetdataformats'
-# }
-
-
-# The main interface is through Pybind11Extension.
-# * You can add cxx_std=11/14/17, and then build_ext can be removed.
-# * You can set include_pybind11=false to add the include directory yourself,
-#   say from a submodule.
-#
-# Note:
-#   Sort input source files if you glob sources to ensure bit-for-bit
-#   reproducible builds (https://github.com/pybind/python_example/pull/53)
-
-# ext_modules = [
-#     Pybind11Extension(
-#         "detdataformats/_daq_detdataformats_py",
-#         sources=[
-#             # "src/main.cpp",
-#         ] + glob('dunedaq/detdataformats/pybindsrc/*.cpp'),
-#         include_dirs=[
-#             "dunedaq/detdataformats/include"
-#         ],
-#         # Example: passing in the version to the compiled code
-#         define_macros=[("VERSION_INFO", __version__)],
-#     ),
-#     Pybind11Extension(
-#         "fddetdataformats/_daq_fddetdataformats_py",
-#         sources=[
-#             # "src/main.cpp",
-#         ] + glob('dunedaq/fddetdataformats/pybindsrc/*.cpp'),
-#         include_dirs=[
-#             "dunedaq/detdataformats/include",
-#             "dunedaq/fddetdataformats/include"
-#         ],
-#         # Example: passing in the version to the compiled code
-#         define_macros=[("VERSION_INFO", __version__)],
-#     ),
-# ]
-
-
 class build(_build):
     def run(self):
         dir_path = path.dirname(path.realpath(__file__))
