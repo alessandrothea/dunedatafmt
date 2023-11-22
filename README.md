@@ -1,5 +1,9 @@
-python_example
-==============
+DUNE DAQ Data Format python package
+===================================
+
+The `datafmt` package provides a convenient way to distrinute the basic DUNE-DAQ packages required to unpack DUNE-DAQ fragments.
+
+
 
 [![Gitter][gitter-badge]][gitter-link]
 
@@ -34,7 +38,7 @@ Installation
 ------------
 
  - clone this repository
- - `pip install ./python_example`
+ - `pip install ./datafmt`
 
 CI Examples
 -----------
@@ -54,7 +58,7 @@ the extension module to generate beautiful documentation in a variety formats.
 The following command generates HTML-based reference documentation; for other
 formats please refer to the Sphinx manual:
 
- - `cd python_example/docs`
+ - `cd datafmts/docs`
  - `make html`
 
 License
