@@ -13,12 +13,12 @@ __version__ = "4.2.1"
 
 
 dunedaq_packages = [
-    'detdataformats',
-    'fddetdataformats',
+    # 'detdataformats',
+    # 'fddetdataformats',
     'daqdataformats',
-    'trgdataformats',
+    # 'trgdataformats',
     # 'detchannelmaps',
-    'rawdatautils'
+    # 'rawdatautils'
 ]
 
 packages = dunedaq_packages[:]
