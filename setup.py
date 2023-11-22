@@ -9,7 +9,7 @@ import os.path as path
 
 from glob import glob
 
-__version__ = "0.0.1"
+__version__ = "4.2.1"
 
 
 dunedaq_packages = [
@@ -77,11 +77,6 @@ class build(_build):
         # important to do this instead of "super", since it hasn't been properly updated
         _build.run(self) 
 
-setup(
-    # setup specifications here
-    cmdclass={"build": build}
-)
-
 ext_modules = [
     Pybind11Extension(
         f"{p}/_daq_{p}_py",
@@ -113,7 +108,7 @@ with ParallelCompile("NPY_NUM_BUILD_JOBS"):
         # Currently, build_ext only provides an optional "highest supported C++
         # level" feature, but in the future it may provide more features.
         cmdclass={
-            "build": build
+            "build": build,
             "build_ext": build_ext,
             },
         zip_safe=False,
