@@ -17,7 +17,7 @@ dunedaq_packages = [
     'fddetdataformats',
     'daqdataformats',
     'trgdataformats',
-    # 'detchannelmaps',
+    # 'detchannelmaps',  # disabled: verify build compatibility before enabling
     'rawdatautils'
 ]
 
@@ -28,13 +28,16 @@ package_dir = { p:f"dunedaq/{p}/python/{p}" for p in dunedaq_packages }
 class build(_build):
     def run(self):
         dir_path = path.dirname(path.realpath(__file__))
-        sm_init_res = subprocess.check_output(['git', 'submodule', 'update', '--init', '--recursive'], cwd=dir_path)
-        print(sm_init_res)
-
+        if path.exists(path.join(dir_path, '.git')):
+            sm_init_res = subprocess.check_output(
+                ['git', 'submodule', 'update', '--init', '--recursive'],
+                cwd=dir_path
+            )
+            print(sm_init_res)
 
         # ---- some custom code here ----
         # important to do this instead of "super", since it hasn't been properly updated
-        _build.run(self) 
+        _build.run(self)
 
 ext_modules = [
     Pybind11Extension(
